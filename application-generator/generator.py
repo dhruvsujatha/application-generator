@@ -4,9 +4,29 @@
 import logging
 import os
 from pathlib import Path
+import argparse
 
 import jinja2
 from dotenv import load_dotenv
+
+# Setup ArgParse
+parser = argparse.ArgumentParser(description="Generate a resume from a template.")
+parser.add_argument(
+    "-t",
+    "--type",
+    type=str,
+    choices=["cs", "ds", "hpc"],
+    default="cs",
+    help="Type of resume to generate.",
+) 
+parser.add_argument(
+    "-e",
+    "--excerpt",
+    type=str,
+    required=True,
+    help="Excerpt which includes the keywords from the job description.",
+)
+args = parser.parse_args()
 
 # Set up logging
 logging.basicConfig(
